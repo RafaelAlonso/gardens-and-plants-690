@@ -4,3 +4,21 @@
     <p><%= @garden.description %></p>
   </div>
 </div>
+
+<div class="container mt-5">
+  <%= simple_form_for [ @garden, @plant ] do |f| %>
+    <%= f.input :name %>
+    <%= f.input :image_url %>
+    <%= f.submit "Add this plant" %>
+  <% end %>
+
+
+  <%= link_to "destroy all plants", delete_all_garden_plants_path(@garden), method: :delete, data: { confirm: "Are you REEEEEAAALLY sure about that?" } %>
+  <% @garden.plants.each do |plant| %>
+    <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= plant.image_url %>)">
+      <%= plant.name %>
+      <%= link_to "+", plant_path(plant), method: :delete, data: { confirm: "Sure 'bout that?" } , class: "card-remove-link" %>
+    </div>
+  <% end %>
+    
+</div>
